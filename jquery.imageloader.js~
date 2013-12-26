@@ -11,22 +11,22 @@
     
     var loadCount = 0,
         cache = [],
-        len = urls.length;
-
+        len = options.urls.length;
+    var update = 
     $.each(options.urls, function(i, item) {
       var img = new Image();
-      img.src = item;
       img.onerror = function() {
-        loadCount++;
         options.onError(item);
+        img.onload();
       };
-      img.onload = function(res) {
-        options.onUpdate(++loadCount/len, urls[loadCount-1]);
+      img.onload = function() {
+        options.onUpdate(++loadCount/len, options.urls[loadCount-1]);
         if (loadCount === len) options.onComplete(cache);
-      };
+      }
+      img.src = options.base ? options.base+item : item;      
       cache.push(img);
     });
 
   };
- 
+
 })(jQuery);

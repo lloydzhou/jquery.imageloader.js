@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>imageloader</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="jquery.imageloader.js"></script>
+
+    </head>
+    <body>
+    <div id="loading" style="background: #f00;height: 10px;width:0"></div>
+    <script>
+    $.imageloader({
+        //base: 'http://www.egrappler.com/contents/smartpreload/demo/',
+        urls: ['images/super_nova.jpg', 'images/pacific-ocean-from-space.jpg', 'images/dark_sun_dawn.jpg', 'images/abstract_lake.jpg', 'images/abstract_brushes.jpg', 'images/earth.jpg', 'images/moon-arc.jpg', 'images/moon-day.jpg', 'images/saguaroMoon_seip.jpg', 'images/solar-system.jpg', 'images/space.jpg', 'images/tricompSW.jpg'],
+        //urls: ['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 'images/4.jpg', 'images/5.jpg', 'images/6.jpg', 'images/7.jpg', 'images/8.jpg'],
+        onComplete: function(images){
+            console.log(images);
+            $(images).appendTo('body')
+        },
+
+        onUpdate: function(ratio, image){
+            $('#loading').css('width', ratio * 100 + '%')
+            console.log(ratio, image)
+        },
+
+        onError: function(image){
+            console.log('Error to load' + image);
+        }
+    });
+    console.log('start to load images')
+    </script>
+    </body>
+</html>
